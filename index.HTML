@@ -1,1 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Tableau SNCF Metz - DEMO</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial;
+            background: black;
+            color: white;
+        }
+        
+        .demo-banner {
+            background: #ff6600;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+        }
+        
+        .header {
+            background: #ffcc00;
+            color: black;
+            padding: 20px;
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            margin: 0;
+            display: inline-block;
+        }
+        
+        .header button {
+            float: right;
+            padding: 10px 20px;
+            background: black;
+            color: #ffcc00;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .header #clock {
+            float: right;
+            margin-right: 20px;
+            font-size: 18px;
+            line-height: 40px;
+            font-weight: bold;
+        }
+        
+        .station-selector {
+            background: #333;
+            padding: 15px 20px;
+            border-bottom: 2px solid #ffcc00;
+        }
+        
+        .station-selector select {
+            padding: 10px 15px;
+            font-size: 16px;
+            background: black;
+            color: #ffcc00;
+            border: 2px solid #ffcc00;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .station-selector label {
+            margin-right: 10px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #1a1a1a;
+        }
+        
+        th {
+            background: #333;
+            color: #ffcc00;
+            padding: 15px;
+            text-align: left;
+            border-bottom: 2px solid #ffcc00;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+        
+        td {
+            padding: 20px 15px;
+            border-bottom: 1px solid #333;
+            font-size: 16px;
+        }
+        
+        tr:hover {
+            background: #2a2a2a;
+        }
+        
+        .train-num {
+            color: #ffcc00;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .time {
+            font-family: monospace;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .time-real {
+            color: #ffcc00;
+        }
+        
+        .delay-red {
+            color: #ff3333;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .delay-green {
+            color: #00ff00;
+            font-weight: bold;
+        }
+        
+        .voie {
+            color: #ffcc00;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .badge {
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .badge-ok {
+            background: #00aa00;
+            color: white;
+        }
+        
+        .badge-late {
+            background: #ff3333;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="demo-banner">
+    🚧 MODE DEMO - Données fictives pour la demonstration 🚧
+</div>
+
+<div class="header">
+    <h1>DEPARTS</h1>
+    <button onclick="refresh()">ACTUALISER</button>
+    <div id="clock"></div>
+    <div style="clear:both"></div>
+</div>
+
+<div class="station-selector">
+    <label>GARE :</label>
+    <select id="station" onchange="changeStation()">
+        <option value="metz">METZ-VILLE</option>
+        <option value="noveant">NOVEANT-SUR-MOSELLE</option>
+        <option value="ancy">ANCY-SUR-MOSELLE</option>
+        <option value="ars">ARS-SUR-MOSELLE</option>
+    </select>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>TRAIN</th>
+            <th>DESTINATION</th>
+            <th>HEURE PREVUE</th>
+            <th>HEURE</th>
+            <th>RETARD</th>
+            <th>VOIE</th>
+            <th>ETAT</th>
+        </tr>
+    </thead>
+    <tbody id="trains">
+    </tbody>
+</table>
+
+<script>
+var currentStation = 'metz';
+
+var demoData = {
+    metz: [
+        {train: 'TER 88512', dest: 'Luxembourg', prevue: '22:45', reelle: '22:52', retard: 7, voie: '3', status: 'late'},
+        {train: 'TER 88216', dest: 'Nancy', prevue: '22:58', reelle: '22:58', retard: 0, voie: '5', status: 'ok'},
+        {train: 'TGV 2853', dest: 'Paris Est', prevue: '23:12', reelle: '23:12', retard: 0, voie: '1', status: 'ok'},
+        {train: 'TER 88320', dest: 'Thionville', prevue: '23:25', reelle: '23:30', retard: 5, voie: '4', status: 'late'},
+        {train: 'TER 88418', dest: 'Strasbourg', prevue: '23:38', reelle: '23:38', retard: 0, voie: '2', status: 'ok'},
+        {train: 'TER 88522', dest: 'Luxembourg', prevue: '23:55', reelle: '00:03', retard: 8, voie: '3', status: 'late'},
+        {train: 'TER 88224', dest: 'Nancy', prevue: '00:15', reelle: '00:15', retard: 0, voie: '5', status: 'ok'},
+        {train: 'TER 88326', dest: 'Thionville', prevue: '00:28', reelle: '00:28', retard: 0, voie: '4', status: 'ok'}
+    ],
+    noveant: [
+        {train: 'TER 88512', dest: 'Luxembourg', prevue: '22:52', reelle: '22:59', retard: 7, voie: '2', status: 'late'},
+        {train: 'TER 88216', dest: 'Nancy', prevue: '23:05', reelle: '23:05', retard: 0, voie: '1', status: 'ok'},
+        {train: 'TER 88320', dest: 'Thionville', prevue: '23:32', reelle: '23:37', retard: 5, voie: '2', status: 'late'},
+        {train: 'TER 88418', dest: 'Strasbourg', prevue: '23:45', reelle: '23:45', retard: 0, voie: '1', status: 'ok'},
+        {train: 'TER 88522', dest: 'Luxembourg', prevue: '00:02', reelle: '00:10', retard: 8, voie: '2', status: 'late'}
+    ],
+    ancy: [
+        {train: 'TER 88512', dest: 'Luxembourg', prevue: '22:48', reelle: '22:55', retard: 7, voie: '1', status: 'late'},
+        {train: 'TER 88216', dest: 'Nancy', prevue: '23:01', reelle: '23:01', retard: 0, voie: '2', status: 'ok'},
+        {train: 'TER 88320', dest: 'Thionville', prevue: '23:28', reelle: '23:33', retard: 5, voie: '1', status: 'late'},
+        {train: 'TER 88418', dest: 'Strasbourg', prevue: '23:41', reelle: '23:41', retard: 0, voie: '2', status: 'ok'},
+        {train: 'TER 88522', dest: 'Luxembourg', prevue: '23:58', reelle: '00:06', retard: 8, voie: '1', status: 'late'}
+    ],
+    ars: [
+        {train: 'TER 88512', dest: 'Luxembourg', prevue: '22:50', reelle: '22:57', retard: 7, voie: '1', status: 'late'},
+        {train: 'TER 88216', dest: 'Nancy', prevue: '23:03', reelle: '23:03', retard: 0, voie: '2', status: 'ok'},
+        {train: 'TER 88320', dest: 'Thionville', prevue: '23:30', reelle: '23:35', retard: 5, voie: '1', status: 'late'},
+        {train: 'TER 88418', dest: 'Strasbourg', prevue: '23:43', reelle: '23:43', retard: 0, voie: '2', status: 'ok'},
+        {train: 'TER 88522', dest: 'Luxembourg', prevue: '00:00', reelle: '00:08', retard: 8, voie: '1', status: 'late'}
+    ]
+};
+
+function changeStation() {
+    currentStation = document.getElementById('station').value;
+    refresh();
+}
+
+function refresh() {
+    var data = demoData[currentStation];
+    var html = '';
+    
+    for (var i = 0; i < data.length; i++) {
+        var t = data[i];
+        
+        var delayTxt = '-';
+        var delayClass = 'delay-green';
+        if (t.retard > 0) {
+            delayTxt = '+' + t.retard + ' min';
+            delayClass = 'delay-red';
+        } else if (t.retard < 0) {
+            delayTxt = t.retard + ' min';
+        }
+        
+        var badge = '<span class="badge badge-ok">A l\'heure</span>';
+        if (t.status == 'late') {
+            badge = '<span class="badge badge-late">Retardé</span>';
+        }
+        
+        html = html + '<tr>';
+        html = html + '<td><span class="train-num">' + t.train + '</span></td>';
+        html = html + '<td>' + t.dest + '</td>';
+        html = html + '<td><span class="time">' + t.prevue + '</span></td>';
+        html = html + '<td><span class="time time-real">' + t.reelle + '</span></td>';
+        html = html + '<td><span class="' + delayClass + '">' + delayTxt + '</span></td>';
+        html = html + '<td><span class="voie">' + t.voie + '</span></td>';
+        html = html + '<td>' + badge + '</td>';
+        html = html + '</tr>';
+    }
+    
+    document.getElementById('trains').innerHTML = html;
+}
+
+function updateClock() {
+    var n = new Date();
+    var h = n.getHours();
+    var m = n.getMinutes();
+    var s = n.getSeconds();
+    if (h < 10) {
+        h = '0' + h;
+    }
+    if (m < 10) {
+        m = '0' + m;
+    }
+    if (s < 10) {
+        s = '0' + s;
+    }
+    var el = document.getElementById('clock');
+    if (el) {
+        el.innerHTML = h + ':' + m + ':' + s;
+    }
+}
+
+refresh();
+setInterval(updateClock, 1000);
+updateClock();
+</script>
+
+</body>
+
+</html>
 
