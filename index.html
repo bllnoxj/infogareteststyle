@@ -247,33 +247,11 @@ font-weight: bold;
 
 <div class="info-flash">
 <div class="info-title">INFORMATIONS FLASH</div>
-<div class="info-text" id="infoText">Bienvenue sur InfoGares - Informations en temps reel - Pensez a valider votre titre de transport</div>
+<div class="info-text" id="infoText">Bienvenue sur InfoGares - Informations en temps reel</div>
 </div>
 
 <script>
-var clientId = 'a5e9fa79d1014e67919fd6f4f91269f5';
-var clientSecret = '75238a1e08824fc9a5f2dce357a9683c';
-var token = '';
 var station = 'stop_area:SNCF:87212407';
-
-function auth(callback) {
-var x = new XMLHttpRequest();
-x.open('POST', 'https://api.sncf.com/v1/token', true);
-x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-x.setRequestHeader('Authorization', 'Basic ' + btoa(clientId + ':' + clientSecret));
-
-x.onload = function() {
-if (x.status === 200) {
-var d = JSON.parse(x.responseText);
-token = d.access_token;
-if (callback) callback();
-} else {
-showError('Erreur authentification');
-}
-};
-
-x.send('grant_type=client_credentials');
-}
 
 function changeStation() {
 station = document.getElementById('stationSelect').value;
@@ -281,15 +259,8 @@ loadTrains();
 }
 
 function loadTrains() {
-if (!token) {
-auth(loadTrains);
-return;
-}
-
-var url = 'https://api.sncf.com/v1/coverage/sncf/stop_areas/' + station + '/departures?count=15';
 var x = new XMLHttpRequest();
-x.open('GET', url, true);
-x.setRequestHeader('Authorization', 'Bearer ' + token);
+x.open('GET', '/.netlify/functions/trains?station=' + encodeURIComponent(station), true);
 
 x.onload = function() {
 if (x.status === 200) {
@@ -297,16 +268,18 @@ var d = JSON.parse(x.responseText);
 if (d.departures && d.departures.length > 0) {
 displayTrains(d.departures);
 updateInfo(d.disruptions);
+hideError();
 } else {
 document.getElementById('trainsBody').innerHTML = '<tr><td colspan="6" class="loading">Aucun depart prevu</td></tr>';
 }
-hideError();
-} else if (x.status === 401) {
-token = '';
-auth(loadTrains);
 } else {
-showError('Erreur chargement');
+showError('Erreur chargement (code: ' + x.status + ')');
+document.getElementById('trainsBody').innerHTML = '<tr><td colspan="6" class="loading">Erreur</td></tr>';
 }
+};
+
+x.onerror = function() {
+showError('Erreur connexion');
 };
 
 x.send();
@@ -399,11 +372,8 @@ function hideError() {
 document.getElementById('errorMsg').style.display = 'none';
 }
 
-auth(function() {
 loadTrains();
 setInterval(loadTrains, 30000);
-});
-
 setInterval(updateClock, 1000);
 updateClock();
 </script>
