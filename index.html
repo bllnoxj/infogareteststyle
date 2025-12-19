@@ -252,6 +252,7 @@ font-weight: bold;
 
 <script>
 var station = 'stop_area:SNCF:87212407';
+var apiKey = '02ec645715cd69649a30eaad83c5475e216ca40d202d549478ba5d82';
 
 function changeStation() {
 station = document.getElementById('stationSelect').value;
@@ -260,7 +261,7 @@ loadTrains();
 
 function loadTrains() {
 var x = new XMLHttpRequest();
-x.open('GET', '/.netlify/functions/trains?station=' + encodeURIComponent(station), true);
+x.open('GET', '/.netlify/functions/trains?station=' + encodeURIComponent(station) + '&key=' + apiKey, true);
 
 x.onload = function() {
 if (x.status === 200) {
