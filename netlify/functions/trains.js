@@ -1,8 +1,8 @@
 const https = require('https');
 
 exports.handler = async (event) => {
-  const station = event.queryStringParameters.station || 'stop_area:SNCF:87212407';
-  const apiKey = event.queryStringParameters.key || '02ec645715cd69649a30eaad83c5475e216ca40d202d549478ba5d82';
+  const station = event.queryStringParameters.station || 'stop_area:SNCF:87192039';
+  const apiKey = event.queryStringParameters.key || 'de22144e-af1e-4087-8e58-82e24de2abc0';
   
   return new Promise((resolve) => {
     const options = {
