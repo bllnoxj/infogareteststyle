@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation | Julex</title>
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <style>
+        .docs-layout { display: flex; gap: 4rem; padding-top: 100px; }
+        .docs-sidebar { width: 250px; position: sticky; top: 100px; height: calc(100vh - 100px); overflow-y: auto; padding-bottom: 2rem; }
+        .docs-content { flex: 1; padding-bottom: 5rem; }
+        .docs-sidebar h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin: 2rem 0 1rem; }
+        .docs-sidebar ul li { margin-bottom: 0.5rem; }
+        .docs-sidebar ul li a { color: var(--text-muted); font-size: 0.95rem; }
+        .docs-sidebar ul li a:hover, .docs-sidebar ul li a.active { color: var(--primary); }
+        .docs-content section { margin-bottom: 4rem; scroll-margin-top: 100px; }
+        .docs-content h2 { font-size: 2.25rem; margin-bottom: 1.5rem; }
+        .docs-content p { margin-bottom: 1rem; color: var(--text-muted); }
+        .search-container { position: relative; margin-bottom: 2rem; }
+        #docs-search { width: 100%; padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text); }
+        #search-results { position: absolute; top: 100%; left: 0; right: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; z-index: 10; display: none; max-height: 300px; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .search-result-item { padding: 1rem; border-bottom: 1px solid var(--border); }
+        .search-result-item:hover { background: var(--glass-bg); }
+        code { background: var(--glass-bg); padding: 0.2rem 0.4rem; border-radius: 4px; font-family: monospace; }
+        @media (max-width: 900px) { .docs-layout { flex-direction: column; } .docs-sidebar { width: 100%; position: static; height: auto; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <img src="assets/images/logo.svg" alt="Julex Logo">
+                    <span>Julex</span>
+                </a>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="download.html">Download</a>
+                    <a href="installation.html">Installation</a>
+                    <a href="docs.html" class="active">Docs</a>
+                    <a href="faq.html">FAQ</a>
+                </div>
+                <div class="nav-actions">
+                    <button id="theme-toggle" class="theme-toggle"></button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container docs-layout">
+        <aside class="docs-sidebar">
+            <div class="search-container">
+                <input type="text" id="docs-search" placeholder="Search documentation...">
+                <div id="search-results"></div>
+            </div>
+            
+            <h3>Getting Started</h3>
+            <ul>
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#how-it-works">How it works</a></li>
+                <li><a href="#permissions">Permissions</a></li>
+            </ul>
+
+            <h3>Features</h3>
+            <ul>
+                <li><a href="#shortcuts">Keyboard Shortcuts</a></li>
+                <li><a href="#customization">Customization</a></li>
+                <li><a href="#examples">Examples</a></li>
+            </ul>
+        </aside>
+
+        <article class="docs-content">
+            <section id="introduction">
+                <h2>Introduction</h2>
+                <p>Julex is a comprehensive toolset for modern web users. It integrates seamlessly into your Chromium-based browser to provide advanced functionality that is usually missing from standard browsing experiences.</p>
+                <p>Whether you're a developer, researcher, or power user, Julex provides the tools you need to browse more efficiently.</p>
+            </section>
+
+            <section id="how-it-works">
+                <h2>How it works</h2>
+                <p>Julex operates as a background service worker that listens for specific triggers and UI interactions. It uses the latest <code>Manifest V3</code> standards to ensure maximum security and performance.</p>
+                <p>The extension consists of three main components:</p>
+                <ul>
+                    <li><strong>The Popup:</strong> Quick access to common tools.</li>
+                    <li><strong>The Sidebar:</strong> Advanced data management and persistent tools.</li>
+                    <li><strong>Background Scripts:</strong> Automation and cross-tab synchronization.</li>
+                </ul>
+            </section>
+
+            <section id="permissions">
+                <h2>Permissions Explanation</h2>
+                <p>Julex requires certain permissions to function correctly. We believe in transparency, so here is why we need them:</p>
+                <ul>
+                    <li><code>storage</code>: To save your preferences and local data.</li>
+                    <li><code>tabs</code>: To manage and organize your open tabs.</li>
+                    <li><code>activeTab</code>: To interact with the page you are currently viewing when you trigger a tool.</li>
+                </ul>
+                <p>Julex <strong>never</strong> tracks your history or sends data to external servers.</p>
+            </section>
+
+            <section id="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+                <p>Boost your speed with these default shortcuts (customizable in settings):</p>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <th style="text-align: left; padding: 1rem;">Action</th>
+                        <th style="text-align: left; padding: 1rem;">Shortcut</th>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: 1rem;">Open Julex Popup</td>
+                        <td style="padding: 1rem;"><code>Alt + J</code></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: 1rem;">Toggle Sidebar</td>
+                        <td style="padding: 1rem;"><code>Alt + S</code></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: 1rem;">Quick Search</td>
+                        <td style="padding: 1rem;"><code>Alt + F</code></td>
+                    </tr>
+                </table>
+            </section>
+
+            <section id="examples">
+                <h2>Examples</h2>
+                <p>Here are a few ways you can use Julex in your daily workflow:</p>
+                <div style="background: var(--bg-card); padding: 1.5rem; border-radius: 8px; margin-top: 1rem;">
+                    <strong>Researching:</strong> Use the Sidebar to collect snippets of text and images from various websites. Julex will automatically organize them by source.
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/search.js"></script>
+</body>
+</html>

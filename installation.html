@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installation Guide | Julex</title>
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <style>
+        .step { margin-bottom: 4rem; display: flex; gap: 3rem; align-items: flex-start; }
+        .step-content { flex: 1; }
+        .step-number { background: var(--primary); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-bottom: 1rem; }
+        .step-image { flex: 1; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); height: 250px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
+        @media (max-width: 768px) { .step { flex-direction: column; gap: 1.5rem; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <img src="assets/images/logo.svg" alt="Julex Logo">
+                    <span>Julex</span>
+                </a>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="download.html">Download</a>
+                    <a href="installation.html" class="active">Installation</a>
+                    <a href="docs.html">Docs</a>
+                    <a href="faq.html">FAQ</a>
+                </div>
+                <div class="nav-actions">
+                    <button id="theme-toggle" class="theme-toggle"></button>
+                    <a href="download.html" class="btn btn-primary">Get Started</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" style="padding-top: 140px; max-width: 900px;">
+        <div class="section-title">
+            <h1>Installation Guide</h1>
+            <p>Follow these simple steps to install Julex manually in your browser.</p>
+        </div>
+
+        <div class="step reveal">
+            <div class="step-content">
+                <div class="step-number">1</div>
+                <h2>Download & Extract</h2>
+                <p>Download the latest .ZIP package from our <a href="download.html" style="color: var(--primary);">download page</a>. Once downloaded, extract the contents of the ZIP file to a folder on your computer.</p>
+            </div>
+            <div class="step-image">[ ZIP Extraction Preview ]</div>
+        </div>
+
+        <div class="step reveal">
+            <div class="step-content">
+                <div class="step-number">2</div>
+                <h2>Open Extensions Page</h2>
+                <p>Open your browser and navigate to <code>chrome://extensions</code> (or the equivalent for your browser). You can also find this in the menu under More Tools > Extensions.</p>
+            </div>
+            <div class="step-image">[ Extensions Page Preview ]</div>
+        </div>
+
+        <div class="step reveal">
+            <div class="step-content">
+                <div class="step-number">3</div>
+                <h2>Enable Developer Mode</h2>
+                <p>In the top right corner of the Extensions page, toggle the "Developer mode" switch to the ON position. This will reveal new options.</p>
+            </div>
+            <div class="step-image">[ Developer Mode Toggle ]</div>
+        </div>
+
+        <div class="step reveal">
+            <div class="step-content">
+                <div class="step-number">4</div>
+                <h2>Load Unpacked</h2>
+                <p>Click the "Load unpacked" button and select the folder where you extracted the Julex files in Step 1. The extension will be installed immediately!</p>
+            </div>
+            <div class="step-image">[ Load Unpacked Button ]</div>
+        </div>
+
+        <div style="background: var(--bg-card); padding: 2rem; border-radius: var(--radius); border-left: 4px solid var(--primary); margin-top: 4rem;" class="reveal">
+            <h3>💡 Pro Tip</h3>
+            <p>Pin Julex to your toolbar for quick access to all its features. Click the puzzle icon in your browser toolbar and click the pin icon next to Julex.</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; Julex 2026. Developed by Jules POMPEY.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

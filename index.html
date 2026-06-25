@@ -1,383 +1,140 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>InfoGares Metz</title>
-<style>
-body {
-margin: 0;
-padding: 0;
-font-family: Arial, sans-serif;
-background: #000;
-color: #fff;
-}
-
-.top-bar {
-background: #1a1a1a;
-padding: 15px 30px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-border-bottom: 3px solid #ffc800;
-}
-
-.logo {
-font-size: 32px;
-font-weight: bold;
-color: #ffc800;
-}
-
-.clock {
-font-size: 28px;
-font-weight: bold;
-color: #ffc800;
-font-family: monospace;
-}
-
-.station-bar {
-background: #2a2a2a;
-padding: 12px 30px;
-border-bottom: 2px solid #444;
-}
-
-.station-bar label {
-font-size: 16px;
-font-weight: bold;
-margin-right: 10px;
-}
-
-.station-bar select {
-padding: 10px 20px;
-font-size: 16px;
-background: #000;
-color: #ffc800;
-border: 2px solid #ffc800;
-border-radius: 5px;
-cursor: pointer;
-font-weight: bold;
-}
-
-.trains-table {
-width: 100%;
-border-collapse: collapse;
-}
-
-.trains-table thead {
-background: #1a1a1a;
-}
-
-.trains-table th {
-padding: 15px;
-text-align: left;
-font-size: 14px;
-font-weight: bold;
-color: #ffc800;
-border-bottom: 2px solid #ffc800;
-text-transform: uppercase;
-}
-
-.trains-table tbody tr {
-border-bottom: 1px solid #333;
-transition: background 0.2s;
-}
-
-.trains-table tbody tr:hover {
-background: #1a1a1a;
-}
-
-.trains-table td {
-padding: 18px 15px;
-font-size: 16px;
-}
-
-.status-badge {
-display: inline-block;
-padding: 6px 14px;
-border-radius: 4px;
-font-size: 12px;
-font-weight: bold;
-text-transform: uppercase;
-}
-
-.badge-ok {
-background: #00aa00;
-color: white;
-}
-
-.badge-late {
-background: #ff3333;
-color: white;
-}
-
-.train-info {
-display: flex;
-align-items: center;
-gap: 10px;
-}
-
-.train-type {
-padding: 5px 10px;
-border-radius: 4px;
-font-size: 12px;
-font-weight: bold;
-color: white;
-}
-
-.type-ter {
-background: #0066cc;
-}
-
-.type-tgv {
-background: #8b0000;
-}
-
-.train-num {
-font-size: 20px;
-font-weight: bold;
-}
-
-.destination {
-font-size: 18px;
-}
-
-.time {
-font-family: monospace;
-font-size: 24px;
-font-weight: bold;
-color: #ffc800;
-}
-
-.delay {
-font-size: 18px;
-font-weight: bold;
-}
-
-.delay-red {
-color: #ff3333;
-}
-
-.delay-green {
-color: #00ff00;
-}
-
-.platform {
-font-size: 32px;
-font-weight: bold;
-color: #ffc800;
-text-align: center;
-}
-
-.info-flash {
-background: #1a1a1a;
-border-top: 3px solid #ffc800;
-padding: 15px 30px;
-overflow: hidden;
-}
-
-.info-title {
-color: #ffc800;
-font-weight: bold;
-font-size: 14px;
-margin-bottom: 8px;
-}
-
-.info-text {
-color: #fff;
-font-size: 14px;
-white-space: nowrap;
-animation: scroll 30s linear infinite;
-}
-
-@keyframes scroll {
-from { transform: translateX(100%); }
-to { transform: translateX(-100%); }
-}
-
-.loading {
-text-align: center;
-padding: 50px;
-color: #ffc800;
-font-size: 20px;
-}
-
-.error {
-background: #ff3333;
-color: white;
-padding: 15px 30px;
-display: none;
-font-weight: bold;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Julex Extension | Supercharge Your Browser</title>
+    <meta name="description" content="Julex is the ultimate Chromium extension for productivity and modern browsing.">
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Julex Extension">
+    <meta property="og:description" content="The ultimate Chromium extension for productivity.">
+    <meta property="og:image" content="assets/images/logo.svg">
+    <meta property="og:type" content="website">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
 </head>
 <body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <img src="assets/images/logo.svg" alt="Julex Logo">
+                    <span>Julex</span>
+                </a>
+                <div class="nav-links">
+                    <a href="index.html" class="active">Home</a>
+                    <a href="download.html">Download</a>
+                    <a href="installation.html">Installation</a>
+                    <a href="docs.html">Docs</a>
+                    <a href="faq.html">FAQ</a>
+                </div>
+                <div class="nav-actions">
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme"></button>
+                    <a href="download.html" class="btn btn-primary">Get Started</a>
+                    <button id="mobile-menu-btn" class="mobile-menu-btn">☰</button>
+                </div>
+            </nav>
+        </div>
+    </header>
 
-<div class="top-bar">
-<div class="logo">InfoGares</div>
-<div class="clock" id="clock">--:--:--</div>
-</div>
+    <main>
+        <!-- Hero Section -->
+        <section class="hero container">
+            <h1 class="fade-in">Supercharge Your <br>Browsing Experience</h1>
+            <p class="fade-in delay-1">Julex is a modern, lightweight, and powerful Chromium extension designed to boost your productivity with advanced tools right in your browser.</p>
+            <div class="hero-actions fade-in delay-2">
+                <a href="download.html" class="btn btn-primary">Download Extension</a>
+                <a href="docs.html" class="btn btn-outline">Read Documentation</a>
+            </div>
+        </section>
 
-<div class="station-bar">
-<label>GARE :</label>
-<select id="stationSelect" onchange="changeStation()">
-<option value="stop_area:SNCF:87192039">METZ-VILLE</option>
-	<option value="stop_area:SNCF:87192427">NOVEANT-SUR-MOSELLE</option>
-	<option value="stop_area:SNCF:87192419">ANCY-SUR-MOSELLE</option>
-	<option value="stop_area:SNCF:87192401">ARS-SUR-MOSELLE</option>
-</select>
-</div>
+        <!-- Features Section -->
+        <section class="features container">
+            <div class="section-title reveal">
+                <h2>Why Choose Julex?</h2>
+                <p>Designed for professionals who demand more from their browser.</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card reveal delay-1">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Lightning Fast</h3>
+                    <p>Optimized for performance, Julex runs smoothly without slowing down your browser or consuming excess memory.</p>
+                </div>
+                <div class="feature-card reveal delay-2">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Privacy First</h3>
+                    <p>We don't collect your data. Everything stays local on your machine, ensuring your browsing habits remain private.</p>
+                </div>
+                <div class="feature-card reveal delay-3">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Customizable</h3>
+                    <p>Tailor every aspect of the extension to match your workflow with our intuitive settings panel.</p>
+                </div>
+            </div>
+        </section>
 
-<div id="errorMsg" class="error"></div>
+        <!-- Preview Section -->
+        <section class="preview container">
+            <div class="section-title reveal">
+                <h2>Intuitive Interface</h2>
+                <p>A clean, minimal design that feels like a native part of your browser.</p>
+            </div>
+            <div class="preview-container reveal" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; text-align: center;">
+                <div style="width: 100%; height: 400px; background: var(--glass-bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
+                    [ Extension Interface Screenshot Placeholder ]
+                </div>
+            </div>
+        </section>
+    </main>
 
-<table class="trains-table">
-<thead>
-<tr>
-<th style="width:120px">STATUT</th>
-<th>TRAIN</th>
-<th>DESTINATION</th>
-<th>HEURE</th>
-<th>RETARD</th>
-<th style="width:100px;text-align:center">VOIE</th>
-</tr>
-</thead>
-<tbody id="trainsBody">
-<tr><td colspan="6" class="loading">Chargement des donnees...</td></tr>
-</tbody>
-</table>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <img src="assets/images/logo.svg" alt="Julex Logo">
+                        <span>Julex</span>
+                    </div>
+                    <p>Building tools for a better, faster, and more private web experience.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="download.html">Download</a></li>
+                        <li><a href="installation.html">Installation</a></li>
+                        <li><a href="docs.html">Documentation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="#">GitHub</a></li>
+                        <li><a href="#">Twitter</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; Julex 2026. Developed by Jules POMPEY.</p>
+                <div class="footer-legal">
+                    <a href="privacy.html">Privacy</a> • <a href="LICENSE">License</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-<div class="info-flash">
-<div class="info-title">INFORMATIONS FLASH</div>
-<div class="info-text" id="infoText">Bienvenue sur InfoGares - Informations en temps reel</div>
-</div>
-
-<script>
-var station = 'stop_area:SNCF:87192039';
-var apiKey = 'de22144e-af1e-4087-8e58-82e24de2abc0';
-
-function changeStation() {
-station = document.getElementById('stationSelect').value;
-loadTrains();
-}
-
-function loadTrains() {
-var x = new XMLHttpRequest();
-x.open('GET', '/.netlify/functions/trains?station=' + encodeURIComponent(station) + '&key=' + apiKey, true);
-
-x.onload = function() {
-if (x.status === 200) {
-var d = JSON.parse(x.responseText);
-if (d.departures && d.departures.length > 0) {
-displayTrains(d.departures);
-updateInfo(d.disruptions);
-hideError();
-} else {
-document.getElementById('trainsBody').innerHTML = '<tr><td colspan="6" class="loading">Aucun depart prevu</td></tr>';
-}
-} else {
-showError('Erreur chargement (code: ' + x.status + ')');
-document.getElementById('trainsBody').innerHTML = '<tr><td colspan="6" class="loading">Erreur</td></tr>';
-}
-};
-
-x.onerror = function() {
-showError('Erreur connexion');
-};
-
-x.send();
-}
-
-function displayTrains(trains) {
-var html = '';
-for (var i = 0; i < trains.length; i++) {
-var t = trains[i];
-var base = new Date(t.stop_date_time.base_departure_date_time);
-var real = new Date(t.stop_date_time.departure_date_time);
-var delay = Math.floor((real - base) / 60000);
-
-var num = t.display_informations.headsign || 'N/A';
-var type = 'TER';
-var typeClass = 'type-ter';
-if (num.indexOf('TGV') >= 0) {
-type = 'TGV';
-typeClass = 'type-tgv';
-}
-
-var dest = t.display_informations.direction || 'Inconnu';
-var voie = '-';
-if (t.stop_point && t.stop_point.name) {
-voie = t.stop_point.name.replace('Voie ', '');
-}
-
-var status = '<span class="status-badge badge-ok">A l\'heure</span>';
-if (delay > 0) {
-status = '<span class="status-badge badge-late">Retarde</span>';
-}
-
-var delayTxt = '-';
-var delayClass = 'delay-green';
-if (delay > 0) {
-delayTxt = '+' + delay + ' min';
-delayClass = 'delay-red';
-} else if (delay < 0) {
-delayTxt = delay + ' min';
-}
-
-html += '<tr>';
-html += '<td>' + status + '</td>';
-html += '<td><div class="train-info"><span class="train-type ' + typeClass + '">' + type + '</span><span class="train-num">' + num + '</span></div></td>';
-html += '<td class="destination">' + dest + '</td>';
-html += '<td><span class="time">' + formatTime(real) + '</span></td>';
-html += '<td><span class="delay ' + delayClass + '">' + delayTxt + '</span></td>';
-html += '<td><span class="platform">' + voie + '</span></td>';
-html += '</tr>';
-}
-document.getElementById('trainsBody').innerHTML = html;
-}
-
-function updateInfo(disruptions) {
-var txt = 'Bienvenue sur InfoGares - Informations en temps reel - ';
-if (disruptions && disruptions.length > 0) {
-for (var i = 0; i < 3 && i < disruptions.length; i++) {
-if (disruptions[i].messages && disruptions[i].messages[0]) {
-txt += disruptions[i].messages[0].text + ' - ';
-}
-}
-}
-txt += 'Pensez a valider votre titre de transport - ';
-document.getElementById('infoText').innerHTML = txt;
-}
-
-function formatTime(d) {
-var h = d.getHours();
-var m = d.getMinutes();
-return (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m;
-}
-
-function updateClock() {
-var n = new Date();
-var h = n.getHours();
-var m = n.getMinutes();
-var s = n.getSeconds();
-document.getElementById('clock').innerHTML = 
-(h < 10 ? '0' : '') + h + ':' + 
-(m < 10 ? '0' : '') + m + ':' + 
-(s < 10 ? '0' : '') + s;
-}
-
-function showError(msg) {
-document.getElementById('errorMsg').innerHTML = msg;
-document.getElementById('errorMsg').style.display = 'block';
-}
-
-function hideError() {
-document.getElementById('errorMsg').style.display = 'none';
-}
-
-loadTrains();
-setInterval(loadTrains, 30000);
-setInterval(updateClock, 1000);
-updateClock();
-</script>
-
+    <!-- JS -->
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/app.js"></script>
 </body>
 </html>
