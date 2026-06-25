@@ -1,4 +1,4 @@
-# Julex Extension Website
+# Secret Tab Extension Website
 
 A professional, modern, and production-ready showcase website for the Julex Chromium extension. Built with performance, accessibility, and clean design in mind.
 
@@ -58,12 +58,5 @@ extension-website/
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👥 Credits
-
-- **Developed by**: Jules POMPEY
-- **Design**: Julex 2026
-
----
 
 © Julex 2026. Developed by Jules POMPEY.
